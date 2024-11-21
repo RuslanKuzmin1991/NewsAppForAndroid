@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.navigation.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -58,8 +59,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(project.dependencies.platform(libs.koin.bom))
     implementation(libs.koin.core)
+    implementation(libs.koin.compose)
     implementation(libs.retrofit)
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
-
+    implementation(libs.coil)
+    implementation(libs.splashScreen)
+    implementation(libs.moshi)
+    implementation(libs.moshi.contervtor)
+    implementation(libs.navigation.compose)
 }
