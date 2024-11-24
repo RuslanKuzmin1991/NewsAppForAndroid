@@ -10,8 +10,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.extendednewsapp.presentation.screens.CountryScreen
 import com.example.extendednewsapp.presentation.screens.NewsScreen
-import com.example.extendednewsapp.presentation.screens.NewsViewModel
 import org.koin.androidx.compose.koinViewModel
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 @Composable
 fun NavComponent(
@@ -23,6 +23,6 @@ fun NavComponent(
     )
     NavHost(navController = navController, startDestination = "Country_screen") {
         composable("Country_screen") { CountryScreen(navController) }
-        composable("News_Screen") { NewsScreen() }
+        composable("News_Screen") { NewsScreen(viewModel = koinViewModel()) }
     }
 }

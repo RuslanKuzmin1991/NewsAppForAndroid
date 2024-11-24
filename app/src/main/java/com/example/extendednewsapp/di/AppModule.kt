@@ -1,6 +1,6 @@
 package com.example.extendednewsapp.di
 
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.extendednewsapp.data.NewsApiService
 import com.example.extendednewsapp.data.NewsDataSource
 import com.example.extendednewsapp.data.NewsRemoteDataSource
 import com.example.extendednewsapp.data.NewsRepositoryImpl
@@ -11,13 +11,12 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.module.dsl.viewModel
-import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
 val appModule = module {
-    single {
+    single<NewsApiService> {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BASIC
         }
@@ -31,11 +30,12 @@ val appModule = module {
             .build()
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://newsapi.org/v2")
+            .baseUrl("https://newsapi.org/")
             .client(client)
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
 
+        retrofit.create(NewsApiService::class.java)
     }
 
     single<NewsDataSource> {
@@ -46,5 +46,5 @@ val appModule = module {
         NewsRepositoryImpl(get())
     }
 
-    viewModel { NewsViewModel(get())}
+    viewModel { NewsViewModel(get()) }
 }

@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
+class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
     private val _news = MutableStateFlow(UiNewsState())
     val news: StateFlow<UiNewsState> = _news
 
     fun getNews(country: String) {
         viewModelScope.launch {
-            _news.update {currentValue->
+            _news.update { currentValue ->
                 currentValue.copy(
                     isLoading = true,
                     error = null
@@ -38,7 +38,7 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
         if (exception is NewsException) {
             message = exception.message ?: ""
         }
-        _news.update {currentValue->
+        _news.update { currentValue ->
             currentValue.copy(
                 error = message,
                 isLoading = false
@@ -47,7 +47,7 @@ class NewsViewModel(val newsRepository: NewsRepository) : ViewModel() {
     }
 
     private fun handleSuccess(response: NewsResponse?) {
-        _news.update {currentValue->
+        _news.update { currentValue ->
             currentValue.copy(
                 isLoading = false,
                 error = null,
